@@ -9,6 +9,7 @@ from kivy.clock import Clock
 from kivy.clock import Clock
 from plyer.utils import platform
 from plyer import pedometer, accelerometer
+from datetime import datetime
 import traceback
 
 
@@ -24,7 +25,7 @@ class PedometerInterface(Widget):
                      "z_label": None}
 
         self.add_widget(Button(font_size='10sp',
-                               size=(Window.size[0] / 4,
+                               size=(Window.size[0],
                                      Window.size[1] / 4),
                                pos=(Window.size[0] * .0,
                                     Window.size[1] * 0.75),
@@ -32,7 +33,7 @@ class PedometerInterface(Widget):
                                on_release=self.pedometer_toggle))
 
         self.add_widget(Button(font_size='10sp',
-                               size=(Window.size[0] / 4,
+                               size=(Window.size[0],
                                      Window.size[1] / 4),
                                pos=(Window.size[0] * .0,
                                     Window.size[1] * .5),
@@ -44,8 +45,9 @@ class PedometerInterface(Widget):
             size=(Window.size[0],
                   Window.size[1] * .5),
             pos=(0, 0),
-            text=("Steps: %s\nDistance: %s\nX: %s\nY: %s\nZ: %s" %
-                  (self.data['step'], self.data['distance'],
+            text=("Timestamp: %s\nSteps: %s\nDistance: %s\nX: %s\nY: %s\nZ: %s" %
+                  (datetime.now().strftime("%Y/%m/%d, %H:%M:%S"),
+                   self.data['step'], self.data['distance'],
                    self.data['x_label'], self.data['y_label'],
                    self.data['z_label'])))
         self.add_widget(self.data_label)
@@ -57,8 +59,9 @@ class PedometerInterface(Widget):
 
     def label_updater(self, dt):
         self.data_label.text = (
-            "Steps: %s\nDistance: %s\nX: %s\nY: %s\nZ: %s" %
-            (self.data['step'], self.data['distance'],
+            "Timestamp: %s\nSteps: %s\nDistance: %s\nX: %s\nY: %s\nZ: %s" %
+            (datetime.now().strftime("%Y/%m/%d, %H:%M:%S"),
+             self.data['step'], self.data['distance'],
              self.data['x_label'], self.data['y_label'],
              self.data['z_label']))
 
